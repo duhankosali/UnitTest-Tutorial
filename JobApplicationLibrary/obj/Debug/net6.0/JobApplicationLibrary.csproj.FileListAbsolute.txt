@@ -1,0 +1,11 @@
+D:\Github\JobApplicationLibrary\JobApplicationLibrary\bin\Debug\net6.0\JobApplicationLibrary.deps.json
+D:\Github\JobApplicationLibrary\JobApplicationLibrary\bin\Debug\net6.0\JobApplicationLibrary.dll
+D:\Github\JobApplicationLibrary\JobApplicationLibrary\bin\Debug\net6.0\JobApplicationLibrary.pdb
+D:\Github\JobApplicationLibrary\JobApplicationLibrary\obj\Debug\net6.0\JobApplicationLibrary.GeneratedMSBuildEditorConfig.editorconfig
+D:\Github\JobApplicationLibrary\JobApplicationLibrary\obj\Debug\net6.0\JobApplicationLibrary.AssemblyInfoInputs.cache
+D:\Github\JobApplicationLibrary\JobApplicationLibrary\obj\Debug\net6.0\JobApplicationLibrary.AssemblyInfo.cs
+D:\Github\JobApplicationLibrary\JobApplicationLibrary\obj\Debug\net6.0\JobApplicationLibrary.csproj.CoreCompileInputs.cache
+D:\Github\JobApplicationLibrary\JobApplicationLibrary\obj\Debug\net6.0\JobApplicationLibrary.dll
+D:\Github\JobApplicationLibrary\JobApplicationLibrary\obj\Debug\net6.0\refint\JobApplicationLibrary.dll
+D:\Github\JobApplicationLibrary\JobApplicationLibrary\obj\Debug\net6.0\JobApplicationLibrary.pdb
+D:\Github\JobApplicationLibrary\JobApplicationLibrary\obj\Debug\net6.0\ref\JobApplicationLibrary.dll
