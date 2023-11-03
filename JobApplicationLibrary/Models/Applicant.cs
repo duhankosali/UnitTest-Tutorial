@@ -9,6 +9,7 @@ namespace JobApplicationLibrary.Models
     public class Applicant
     {
         public string Name { get; set; }
+        public string identityNumber { get; set; }
         public int Age { get; set; }
     }
 }
