@@ -35,6 +35,9 @@ namespace JobApplication.UnitTest
         {
             // Arrange
             var mockValidator = new Mock<IIdentityValidator>(); // Moq Library, creates a fake class consisting of the relevant interface.
+            mockValidator.DefaultValue = DefaultValue.Mock;
+
+            mockValidator.Setup(i => i.CountryDataProvider.CountryData.Country).Returns("TURKEY");
             mockValidator.Setup(i=>i.IsValid(It.IsAny<string>())).Returns(true);
 
             ApplicationEvaluator evaluator = new(mockValidator.Object);
@@ -57,6 +60,9 @@ namespace JobApplication.UnitTest
         {
             // Arrange
             var mockValidator = new Mock<IIdentityValidator>(); // Moq Library, creates a fake class consisting of the relevant interface.
+            mockValidator.DefaultValue = DefaultValue.Mock;
+
+            mockValidator.Setup(i => i.CountryDataProvider.CountryData.Country).Returns("TURKEY");
             mockValidator.Setup(i => i.IsValid(It.IsAny<string>())).Returns(true);
 
             ApplicationEvaluator evaluator = new(mockValidator.Object);
@@ -80,6 +86,9 @@ namespace JobApplication.UnitTest
         {
             // Arrange
             var mockValidator = new Mock<IIdentityValidator>(); // Moq Library, creates a fake class consisting of the relevant interface.
+            mockValidator.DefaultValue = DefaultValue.Mock;
+
+            mockValidator.Setup(i => i.CountryDataProvider.CountryData.Country).Returns("TURKEY");
             mockValidator.Setup(i => i.IsValid(It.IsAny<string>())).Returns(false);
 
             ApplicationEvaluator evaluator = new(mockValidator.Object);
@@ -94,6 +103,27 @@ namespace JobApplication.UnitTest
 
             // Assert
             Assert.AreEqual(result, ApplicationResult.TransferredToHR);
+        }
+
+        [Test]
+        public void ApplicationEvaluator_WithInValidIdentityNumber_TransferredToCTO()   
+        {
+            // Arrange
+            var mockValidator = new Mock<IIdentityValidator>();
+            mockValidator.Setup(i => i.CountryDataProvider.CountryData.Country).Returns("SPAIN"); // Moq Hierarchy !!
+
+            ApplicationEvaluator evaluator = new(mockValidator.Object);
+
+            var form = new JobsApplication()
+            {
+                Applicant = new Applicant { Age = 20 }
+            };
+
+            // Action
+            var result = evaluator.Evaluate(form);
+
+            // Assert
+            Assert.AreEqual(result, ApplicationResult.TransferredToCTO);
         }
     }
 }

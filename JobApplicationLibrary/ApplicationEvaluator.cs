@@ -13,7 +13,8 @@ namespace JobApplicationLibrary
         // Let's assume there is data from the user.
         private const int minAge = 18;
         private const int yearsOfExperience = 5;
-        private List<string> techStackList = new() { "C#", "RabbitMQ", "Microservices", "REST API" };
+
+        private List<string> techStackList = new List<string>() { "C#", "RabbitMQ", "Microservices", "REST API" };
 
         // constructor
         private IIdentityValidator identityValidator;
@@ -27,13 +28,17 @@ namespace JobApplicationLibrary
             if(form.Applicant.Age < minAge)
                 return ApplicationResult.AutoRejected;
 
-            // 2. Ders bitti, Bu method test standartlarımıza uymuyor. 3. video da Mock veri kullanacağız.
+
+            if (identityValidator.CountryDataProvider.CountryData.Country != "TURKEY") // Moq Hierarchy
+                return ApplicationResult.TransferredToCTO;
+
+
             bool validIdentity = identityValidator.IsValid(form.Applicant.identityNumber);
             if (!validIdentity)
                 return ApplicationResult.TransferredToHR;
             
 
-            int similarityRate = GetTechStackSimilarityRate(techStackList);
+            int similarityRate = GetTechStackSimilarityRate(form.TechStackList);
             if(similarityRate < 25)
                 return ApplicationResult.AutoRejected;
             
