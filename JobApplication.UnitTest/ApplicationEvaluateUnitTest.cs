@@ -125,5 +125,32 @@ namespace JobApplication.UnitTest
             // Assert
             Assert.AreEqual(ApplicationResult.TransferredToCTO, result);
         }
+
+        [Test]
+        public void ApplicationEvaluator_WithOverAge_ValidationModeToDetailed()
+        {
+            // Arrange
+            var mockValidator = new Mock<IIdentityValidator>();
+
+            //mockValidator.SetupAllProperties(); --> Eðer birden fazla setlenmesi gereken varsa bunu kullanabiliriz.
+            mockValidator.SetupProperty(i => i.ValidationMode);
+            mockValidator.Setup(i => i.CountryDataProvider.CountryData.Country).Returns("SPAIN"); // Moq Hierarchy !!
+
+            var evaluator = new ApplicationEvaluator(mockValidator.Object);
+
+            var form = new JobsApplication()
+            {
+                Applicant = new Applicant
+                {
+                    Age = 51
+                }
+            };
+
+            // Action
+            var result = evaluator.Evaluate(form);
+
+            // Assert
+            Assert.AreEqual(ValidationMode.Detailed, mockValidator.Object.ValidationMode);
+        }
     }
 }

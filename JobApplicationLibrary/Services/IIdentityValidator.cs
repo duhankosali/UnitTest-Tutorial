@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JobApplicationLibrary.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,8 @@ namespace JobApplicationLibrary.Services
         bool IsValid(string identityNumber);
 
         ICountryDataProvider CountryDataProvider { get; }
+
+        public ValidationMode ValidationMode { get; set; }
     }
 
     public interface ICountryData
@@ -21,5 +24,14 @@ namespace JobApplicationLibrary.Services
     public interface ICountryDataProvider
     {
         ICountryData CountryData { get; }
+    }
+
+
+
+    public enum ValidationMode
+    {
+        None,
+        Quick,
+        Detailed
     }
 }

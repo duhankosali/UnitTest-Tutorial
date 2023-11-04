@@ -12,6 +12,8 @@ namespace JobApplicationLibrary
     {
         // Let's assume there is data from the user.
         private const int minAge = 18;
+        private const int maxAge = 50;
+
         private const int yearsOfExperience = 5;
 
         private List<string> techStackList = new List<string>() { "C#", "RabbitMQ", "Microservices", "REST API" };
@@ -28,6 +30,7 @@ namespace JobApplicationLibrary
             if(form.Applicant.Age < minAge)
                 return ApplicationResult.AutoRejected;
 
+            identityValidator.ValidationMode = form.Applicant.Age > maxAge ? ValidationMode.Detailed : ValidationMode.Quick;
 
             if (identityValidator.CountryDataProvider.CountryData.Country != "TURKEY") // Moq Hierarchy
                 return ApplicationResult.TransferredToCTO;
