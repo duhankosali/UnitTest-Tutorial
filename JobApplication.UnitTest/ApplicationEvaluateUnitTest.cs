@@ -3,6 +3,7 @@ using JobApplicationLibrary.Models;
 using JobApplicationLibrary.Services;
 using Moq;
 using static JobApplicationLibrary.ApplicationEvaluator;
+using FluentAssertions;
 
 namespace JobApplication.UnitTest
 {
@@ -27,7 +28,8 @@ namespace JobApplication.UnitTest
             var result = evaluator.Evaluate(form);
 
             // Assert
-            Assert.AreEqual(ApplicationResult.AutoRejected, result);
+            //Assert.AreEqual(ApplicationResult.AutoRejected, result);
+            result.Should().Be(ApplicationResult.AutoRejected);
         }
 
         [Test] // NUnit 'Test Method' attribute
@@ -52,7 +54,8 @@ namespace JobApplication.UnitTest
             var result = evaluator.Evaluate(form);
 
             // Assert
-            Assert.AreEqual(ApplicationResult.AutoRejected, result);
+            //Assert.AreEqual(ApplicationResult.AutoRejected, result);
+            result.Should().Be(ApplicationResult.AutoRejected);
         }
 
         [Test] // NUnit 'Test Method' attribute
@@ -78,7 +81,8 @@ namespace JobApplication.UnitTest
             var result = evaluator.Evaluate(form);
 
             // Assert
-            Assert.AreEqual(ApplicationResult.AutoAccepted, result);
+            //Assert.AreEqual(ApplicationResult.AutoAccepted, result);
+            result.Should().Be(ApplicationResult.AutoAccepted);
         }
 
         [Test]
@@ -102,7 +106,8 @@ namespace JobApplication.UnitTest
             var result = evaluator.Evaluate(form);
 
             // Assert
-            Assert.AreEqual(ApplicationResult.TransferredToHR, result);
+            //Assert.AreEqual(ApplicationResult.TransferredToHR, result);
+            result.Should().Be(ApplicationResult.TransferredToHR);
         }
 
         [Test]
@@ -123,7 +128,8 @@ namespace JobApplication.UnitTest
             var result = evaluator.Evaluate(form);
 
             // Assert
-            Assert.AreEqual(ApplicationResult.TransferredToCTO, result);
+            //Assert.AreEqual(ApplicationResult.TransferredToCTO, result);
+            result.Should().Be(ApplicationResult.TransferredToCTO);
         }
 
         [Test]
@@ -150,7 +156,51 @@ namespace JobApplication.UnitTest
             var result = evaluator.Evaluate(form);
 
             // Assert
-            Assert.AreEqual(ValidationMode.Detailed, mockValidator.Object.ValidationMode);
+            //Assert.AreEqual(ValidationMode.Detailed, mockValidator.Object.ValidationMode);
+            mockValidator.Object.ValidationMode.Should().Be(ValidationMode.Detailed);
+        }
+
+        [Test]
+        public void ApplicationEvaluator_WithNullApplicant_ThrowsArgumentNullException()
+        {
+            // Arrange
+            var mockValidator = new Mock<IIdentityValidator>();
+
+            var evaluator = new ApplicationEvaluator(mockValidator.Object);
+
+            var form = new JobsApplication();
+
+            // Action
+            Action resultAction = () => evaluator.Evaluate(form);
+
+            // Assert
+            resultAction.Should().Throw<ArgumentNullException>();
+        }
+
+        [Test]
+        public void ApplicationEvaluator_WithDefaultValue_IsValidCalled()
+        {
+            // Arrange
+            var mockValidator = new Mock<IIdentityValidator>();
+            mockValidator.DefaultValue = DefaultValue.Mock;
+            mockValidator.Setup(i => i.CountryDataProvider.CountryData.Country).Returns("TURKEY");
+
+            var evaluator = new ApplicationEvaluator(mockValidator.Object);
+
+            var form = new JobsApplication()
+            {
+                Applicant = new Applicant
+                {
+                    Age = 20,
+                    identityNumber = "1234"
+                },
+            };
+
+            // Action
+            var result = evaluator.Evaluate(form);
+
+            // Assert
+            mockValidator.Verify(i => i.IsValid(It.IsAny<string>()));
         }
     }
 }

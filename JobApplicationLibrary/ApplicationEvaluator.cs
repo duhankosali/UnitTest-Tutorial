@@ -27,10 +27,16 @@ namespace JobApplicationLibrary
             
         public ApplicationResult Evaluate(JobsApplication form)
         {
+            if (form.Applicant is null)
+                throw new ArgumentNullException();
+            
+
             if(form.Applicant.Age < minAge)
                 return ApplicationResult.AutoRejected;
 
+
             identityValidator.ValidationMode = form.Applicant.Age > maxAge ? ValidationMode.Detailed : ValidationMode.Quick;
+
 
             if (identityValidator.CountryDataProvider.CountryData.Country != "TURKEY") // Moq Hierarchy
                 return ApplicationResult.TransferredToCTO;
