@@ -27,7 +27,7 @@ namespace JobApplication.UnitTest
             var result = evaluator.Evaluate(form);
 
             // Assert
-            Assert.AreEqual(result, ApplicationResult.AutoRejected);
+            Assert.AreEqual(ApplicationResult.AutoRejected, result);
         }
 
         [Test] // NUnit 'Test Method' attribute
@@ -52,7 +52,7 @@ namespace JobApplication.UnitTest
             var result = evaluator.Evaluate(form);
 
             // Assert
-            Assert.AreEqual(result, ApplicationResult.AutoRejected);
+            Assert.AreEqual(ApplicationResult.AutoRejected, result);
         }
 
         [Test] // NUnit 'Test Method' attribute
@@ -78,7 +78,7 @@ namespace JobApplication.UnitTest
             var result = evaluator.Evaluate(form);
 
             // Assert
-            Assert.AreEqual(result, ApplicationResult.AutoAccepted);
+            Assert.AreEqual(ApplicationResult.AutoAccepted, result);
         }
 
         [Test]
@@ -102,7 +102,7 @@ namespace JobApplication.UnitTest
             var result = evaluator.Evaluate(form);
 
             // Assert
-            Assert.AreEqual(result, ApplicationResult.TransferredToHR);
+            Assert.AreEqual(ApplicationResult.TransferredToHR, result);
         }
 
         [Test]
@@ -123,7 +123,7 @@ namespace JobApplication.UnitTest
             var result = evaluator.Evaluate(form);
 
             // Assert
-            Assert.AreEqual(result, ApplicationResult.TransferredToCTO);
+            Assert.AreEqual(ApplicationResult.TransferredToCTO, result);
         }
     }
 }
